@@ -1,4 +1,3 @@
-
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -91,6 +90,20 @@ def register_attendee():
     next_id += 1
 
     return jsonify(attendee), 201
+
+
+# Belmonte - GET specific attendee
+@app.route("/attendees/<int:id>", methods=["GET"])
+def get_specific_attendee(id):
+    attendee = next(
+        (a for a in attendees if a["id"] == id),
+        None
+    )
+
+    if attendee is None:
+        return jsonify({"error": "Attendee not found"}), 404
+
+    return jsonify(attendee), 200
 
 
 if __name__ == "__main__":
