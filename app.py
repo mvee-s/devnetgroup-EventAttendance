@@ -10,7 +10,7 @@ def register_attendee():
     global next_id
 
     data = request.get_json(silent=True)
-    if not data:
+    if not isinstance(data, dict):
         return jsonify({"error": "JSON body is required"}), 400
 
     student_id = data.get("student_id")
